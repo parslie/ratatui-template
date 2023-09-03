@@ -3,7 +3,7 @@ mod widget;
 use std::{error::Error, time::Duration};
 
 use crossterm::event::{self, Event, KeyModifiers, KeyCode};
-use ratatui::prelude::*;
+use ratatui::{prelude::*, widgets::Paragraph};
 
 #[derive(PartialEq)]
 enum State {
@@ -20,7 +20,8 @@ fn update(event: Event, state: &mut State) {
 }
 
 fn render<B: Backend>(frame: &mut Frame<B>) {
-    
+    let hello_world = Paragraph::new("Hello, world!\nPress CTRL+C to exit...");
+    frame.render_widget(hello_world, frame.size());
 }
 
 pub fn run<B: Backend>(terminal: &mut Terminal<B>) -> Result<(), Box<dyn Error>> {
