@@ -1,7 +1,9 @@
 use crossterm::event::KeyEvent;
 use ratatui::prelude::*;
 
+use crate::types::Frame;
+
 pub trait CompositeWidget {
     fn update(&self, key: KeyEvent);
-    fn render<B: Backend>(&self, frame: &mut Frame<B>, area: Rect);
+    fn render(&self, frame: &mut Frame, area: Rect);
 }

@@ -3,7 +3,9 @@ mod widget;
 use std::{error::Error, time::Duration};
 
 use crossterm::event::{self, Event, KeyModifiers, KeyCode};
-use ratatui::{prelude::*, widgets::Paragraph};
+use ratatui::widgets::Paragraph;
+
+use crate::types::{Frame, Terminal};
 
 #[derive(PartialEq)]
 enum Status {
@@ -23,12 +25,12 @@ fn update(event: Event, data: &mut Data) {
     }
 }
 
-fn render<B: Backend>(frame: &mut Frame<B>) {
+fn render(frame: &mut Frame) {
     let hello_world = Paragraph::new("Hello, world!\nPress CTRL+C to exit...");
     frame.render_widget(hello_world, frame.size());
 }
 
-pub fn run<B: Backend>(terminal: &mut Terminal<B>) -> Result<(), Box<dyn Error>> {
+pub fn run(terminal: &mut Terminal) -> Result<(), Box<dyn Error>> {
     let poll_duration = Duration::from_millis(500);
     let mut data = Data {
         status: Status::Idling,
